@@ -151,7 +151,12 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
         cell.titleLabel.text! = "\(title)"
         cell.overviewLabel.text! = overview
         cell.posterView.setImageWith(imageUrl! as URL)
-             
+        
+        // Use a red color when the user selects the cell
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = UIColor.cyan
+        cell.selectedBackgroundView = backgroundView
+        
         print("Row \(indexPath.row)")
         return cell
     }
