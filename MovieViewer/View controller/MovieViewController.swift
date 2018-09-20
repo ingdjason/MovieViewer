@@ -78,7 +78,7 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
                 // optional code for what happens after the alert controller has finished presenting
             }
         }else{
-            
+            self.activityIndicator.startAnimating()
             url_api = "https://api.themoviedb.org/3/search/movie?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed&query=\(searchText)"
             fetchAllMovies();
         }
@@ -128,7 +128,6 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
                 self.refreshControl.endRefreshing()
             }
         }
-        self.activityIndicator.stopAnimating()
         task.resume()
     }
     
