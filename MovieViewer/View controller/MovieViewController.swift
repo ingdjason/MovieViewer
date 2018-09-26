@@ -19,10 +19,11 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     var movies: [NSDictionary]?
     var refreshControl : UIRefreshControl!
-    var url_api = "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed"
+    var endPoint: String!
+    var url_api: String!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         //set refresh controller
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(MovieViewController.didPullToRefresh(_:)), for: .valueChanged)
@@ -41,15 +42,16 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
         searchBar.delegate = self
         
         // Start the activity indicator
-        self.activityIndicator.startAnimating()
-    url_api = "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed"
+        url_api = "https://api.themoviedb.org/3/movie/\(endPoint!)?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed"
+        
+        self.activityIndicator.startAnimating()//now_playing
         fetchAllMovies()
         
     }
     
     @objc func didPullToRefresh(_ refreshControl: UIRefreshControl){
         self.activityIndicator.startAnimating()
-        url_api = "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed"
+        url_api = "https://api.themoviedb.org/3/movie/\(endPoint!)?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed"
         fetchAllMovies()
     }
     
@@ -79,6 +81,7 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
             }
         }else{
             self.activityIndicator.startAnimating()
+            //searchText
             url_api = "https://api.themoviedb.org/3/search/movie?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed&query=\(searchText)"
             fetchAllMovies();
         }
@@ -87,13 +90,15 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func fetchAllMovies(){
-        let url = URL(string: url_api)!
+        /**/
+        print(endPoint)
+        let url = URL(string: url_api!)!
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
         let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
         let task = session.dataTask(with: request) { (data, response, error) in
             // This will run when the network request returns
             if let error = error {
-                print("ERROR: \(error.localizedDescription)")
+                //print("ERROR: \(error.localizedDescription)")
                 let alertController = UIAlertController(title: "Cannot get movies", message: "The internet connection appears to be offline", preferredStyle: .alert)
                 
                 // create an OK action
@@ -117,7 +122,7 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
             } else if let data = data {
                 // TODO: Get the array of movies
                 let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
-                print("Response \(dataDictionary)")
+                //print("Response \(dataDictionary)")
                 // TODO: Store the movies in a property to use elsewhere
                 self.movies = dataDictionary["results"] as? [NSDictionary]
                 // TODO: Reload your table view data
@@ -144,23 +149,43 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
         let movie = movies![indexPath.row]
         let title = movie["title"] as! String
         let overview = movie["overview"] as! String
-        let poster_path = movie["poster_path"] as! String
         
-        let baseUrl = "https://image.tmdb.org/t/p/w500"
-        let imageUrl = NSURL(string: baseUrl+poster_path )
         cell.titleLabel.text! = "\(title)"
         cell.overviewLabel.text! = overview
-        cell.posterView.setImageWith(imageUrl! as URL)
+        let baseUrl = "https://image.tmdb.org/t/p/w500"
+        if let poster_path = movie["poster_path"] as? String {
+            let imageUrl = NSURL(string: baseUrl+poster_path )
+            cell.posterView.setImageWith(imageUrl! as URL)
+        }
         
         // Use a red color when the user selects the cell
         let backgroundView = UIView()
         backgroundView.backgroundColor = UIColor.cyan
         cell.selectedBackgroundView = backgroundView
         
-        print("Row \(indexPath.row)")
+        //print("Row \(indexPath.row)")
         return cell
     }
 
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //print("Row \(indexPath.row)selected")
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "nextVC") {
+            let cell = sender as! UITableViewCell
+            let indexPath = tableView.indexPath(for: cell)
+            let movie = movies![indexPath!.row]
+            // Get the new view controller using segue.destinationViewController.
+            let detailsViewController = segue.destination as! DetailsViewController
+            // Pass the selected object to the new view controller.
+            detailsViewController.movie = movie
+            //print(movie)
+        }else{
+            //print("segue not ok")
+        }
+    }
+    
     /*func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return CGFloat(310)
     }*/
@@ -170,14 +195,9 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
         // Dispose of any resources that can be recreated.
     }
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+   
 }
