@@ -29,9 +29,11 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
         refreshControl.addTarget(self, action: #selector(MovieViewController.didPullToRefresh(_:)), for: .valueChanged)
         tableView.insertSubview(refreshControl, at: 0)
         // Do any additional setup after loading the view.
+
         self.tableView.estimatedRowHeight = 210
         //self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.rowHeight = 210
+        
         self.tableView.sectionHeaderHeight = 0
         self.tableView.sectionFooterHeight = 0
         
@@ -40,6 +42,7 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         //searching a table
         searchBar.delegate = self
+        self.navigationItem.titleView = searchBar
         
         // Start the activity indicator
         url_api = "https://api.themoviedb.org/3/movie/\(endPoint!)?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed"
