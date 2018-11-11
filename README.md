@@ -44,6 +44,8 @@ Here's a walkthrough of implemented user stories:
 # Project 2 - *Movie viewer *
 <img src='https://raw.githubusercontent.com/ingdjason/MovieViewer/master/mdbmovie-2.gif' title='Movie viewer' width='' alt='Movie viewer' />
 
+
+
 ## User Stories
 
 The following **required** functionality is completed:
@@ -66,6 +68,38 @@ The following **additional** features are implemented:
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
+# Lab 3 - *Name of App Here*
+
+Time spent: **X** hours spent in total
+
+# Lab 3 - *Movie viewer *
+## User Stories
+
+The following **required** user stories are complete:
+
+- The following screens use AutoLayout to adapt to various orientations and screen sizes
+   - [X] Movie feed 
+view (+3pt)
+   - [X] Detail view (+2pt)
+
+The following **stretch** user stories are implemented:
+- [ ] Dynamic Height Cells (+1)
+- [ ] Collection View AutoLayout (+2)
+
+The following **additional** user stories are implemented:
+
+- [ ] List anything else that you can get done to improve the app functionality! (+1-3pts)
+
+Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
+
+1.
+2.
+
+## Video Walkthrough
+
+Here's a walkthrough of implemented user stories:
+
+<img src='https://raw.githubusercontent.com/ingdjason/MovieViewer/master/FLIX-DEMO.gif' title='Movie viewer' width='' alt='Movie viewer' />
 ## Notes
 
 Describe any challenges encountered while building the app.
