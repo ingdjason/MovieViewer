@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="MNl-RR-6d6">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Vrg-4Y-k6V">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -82,7 +82,7 @@
                                             <outlet property="overviewLabel" destination="mt5-X4-psa" id="ZG1-Mm-91E"/>
                                             <outlet property="posterView" destination="94f-VN-c3E" id="Qkj-3m-KMs"/>
                                             <outlet property="titleLabel" destination="bEG-hH-VLK" id="vNo-Ek-ByE"/>
-                                            <segue destination="gSM-hG-uwG" kind="show" identifier="nextVC" trigger="accessoryAction" id="lXC-my-G20"/>
+                                            <segue destination="GqZ-e5-Gke" kind="show" identifier="nextVC" trigger="accessoryAction" id="lXC-my-G20"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -101,6 +101,7 @@
                             <outletCollection property="gestureRecognizers" destination="87T-cg-sof" appends="YES" id="TfB-U0-ECh"/>
                         </connections>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Now Playing" selectedImage="now_playing_tabbar_item" id="hzY-pf-uMM"/>
                     <navigationItem key="navigationItem" title="Movies" id="A5i-nL-e80"/>
                     <connections>
                         <outlet property="activityIndicator" destination="1hz-ox-U0o" id="T7g-OG-8H8"/>
@@ -222,7 +223,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NOm-2z-533" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2041.875" y="132.04225352112675"/>
+            <point key="canvasLocation" x="3039.375" y="132.04225352112675"/>
         </scene>
         <!--Web View Controller-->
         <scene sceneID="coc-kq-ztD">
@@ -252,28 +253,64 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QHe-Dw-lwk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2930.625" y="136.26760563380282"/>
+            <point key="canvasLocation" x="3928.125" y="136.26760563380282"/>
+        </scene>
+        <!--Top Rated-->
+        <scene sceneID="JXP-Nx-nzU">
+            <objects>
+                <viewController id="GDx-a8-3YL" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="qOE-c6-P5K">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="Qsd-Xs-oIs"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Top Rated" selectedImage="projector_tabbar_item" id="I3P-ic-voc"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JU8-0X-5Ch" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1129" y="1055"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="yeQ-Sl-qMx">
+            <objects>
+                <tabBarController id="Vrg-4Y-k6V" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="T6t-ts-Wid">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="vnK-0k-lhc"/>
+                        <segue destination="GDx-a8-3YL" kind="relationship" relationship="viewControllers" id="xR2-gr-ZtZ"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kta-lv-EEm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="309" y="574"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="jmZ-pC-6Dd">
+        <scene sceneID="JqT-W0-SMZ">
             <objects>
-                <navigationController storyboardIdentifier="MoviesNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="MNl-RR-6d6" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="GqZ-e5-Gke" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="sFA-0W-0nm">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="fQV-eN-i6a">
                         <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="wVr-Nt-93f"/>
+                        <segue destination="gSM-hG-uwG" kind="relationship" relationship="rootViewController" id="oVc-sg-WFQ"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="9MA-zj-pbk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Aef-S2-YxQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="135" y="133.09859154929578"/>
+            <point key="canvasLocation" x="2041.875" y="132.04225352112675"/>
         </scene>
     </scenes>
     <resources>
         <image name="movie-clapper-open" width="256" height="256"/>
+        <image name="now_playing_tabbar_item" width="21" height="21"/>
+        <image name="projector_tabbar_item" width="21" height="25"/>
     </resources>
 </document>

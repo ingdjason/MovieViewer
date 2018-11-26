@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import AFNetworking
+//import AFNetworking
 
 class MovieViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     @IBOutlet weak var tableView: UITableView!
@@ -17,7 +17,8 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     @IBOutlet weak var searchBar: UISearchBar!
     
-    var movies: [NSDictionary]?
+    var movies: [Movie] = []
+    var filter: [[String: Any]]?
     var refreshControl : UIRefreshControl!
     var endPoint: String!
     var url_api: String!
@@ -45,7 +46,9 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
         self.navigationItem.titleView = searchBar
         
         // Start the activity indicator
-        url_api = "https://api.themoviedb.org/3/movie/\(endPoint!)?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed"
+       
+        /*url_api = "https://api.themoviedb.org/3/movie/\(endPoint!)?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed"
+        */
         
         self.activityIndicator.startAnimating()//now_playing
         fetchAllMovies()
@@ -54,7 +57,8 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     @objc func didPullToRefresh(_ refreshControl: UIRefreshControl){
         self.activityIndicator.startAnimating()
-        url_api = "https://api.themoviedb.org/3/movie/\(endPoint!)?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed"
+        /*url_api = "https://api.themoviedb.org/3/movie/\(endPoint!)?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed"*/
+        
         fetchAllMovies()
     }
     
@@ -85,7 +89,7 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
         }else{
             self.activityIndicator.startAnimating()
             //searchText
-            url_api = "https://api.themoviedb.org/3/search/movie?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed&query=\(searchText)"
+           /* url_api = "https://api.themoviedb.org/3/search/movie?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed&query=\(searchText)"*/
             fetchAllMovies();
         }
         
@@ -94,7 +98,38 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func fetchAllMovies(){
         /**/
-        print(endPoint)
+        MovieApiManager().nowPlayingMovies { (movies: [Movie]?, error: Error?) in
+            self.activityIndicator.startAnimating()
+            if let movies = movies {
+                self.movies =  movies
+                self.activityIndicator.stopAnimating()
+                self.tableView.reloadData()
+                self.refreshControl.endRefreshing()
+            }else if let error = error {
+                    //print("ERROR: \(error.localizedDescription)")
+                    let alertController = UIAlertController(title: "Cannot get movies", message: "The internet connection appears to be offline", preferredStyle: .alert)
+                    
+                    // create an OK action
+                    let CancelAction = UIAlertAction(title: "Cancel", style: .default) { (action) in
+                        // handle response here.
+                        
+                    }
+                    // add the OK action to the alert controller
+                    alertController.addAction(CancelAction)
+                    
+                    // create an OK action
+                    let OKAction = UIAlertAction(title: "Try again", style: .default) { (action) in
+                        // handle response here.
+                        self.fetchAllMovies()
+                    }
+                    // add the OK action to the alert controller
+                    alertController.addAction(OKAction)
+                    self.present(alertController, animated: true) {
+                        // optional code for what happens after the alert controller has finished presenting
+                }
+            }
+        }
+        /*print(endPoint)
         let url = URL(string: url_api!)!
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
         let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
@@ -136,20 +171,26 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
                 self.refreshControl.endRefreshing()
             }
         }
-        task.resume()
+        task.resume()*/
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        if let movies = movies {
+        /*if let movies = movies {
             return movies.count
         }else{
              return 0
+        }*/
+        if self.searchBar.text!.isEmpty{
+            return self.movies.count
+        }else{
+            return filter?.count ?? 0
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "MovieCell", for : indexPath) as! MovieCell
-        let movie = movies![indexPath.row]
+        cell.movies = movies[indexPath.row]
+        /*let movie = movies![indexPath.row]
         let title = movie["title"] as! String
         let overview = movie["overview"] as! String
         
@@ -160,6 +201,7 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
             let imageUrl = NSURL(string: baseUrl+poster_path )
             cell.posterView.setImageWith(imageUrl! as URL)
         }
+        */
         
         // Use a red color when the user selects the cell
         let backgroundView = UIView()
@@ -178,11 +220,11 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
         if (segue.identifier == "nextVC") {
             let cell = sender as! UITableViewCell
             let indexPath = tableView.indexPath(for: cell)
-            let movie = movies![indexPath!.row]
+            let movie = movies[indexPath!.row]
             // Get the new view controller using segue.destinationViewController.
             let detailsViewController = segue.destination as! DetailsViewController
             // Pass the selected object to the new view controller.
-            detailsViewController.movie = movie
+//            detailsViewController.movie = movie
             //print(movie)
         }else{
             //print("segue not ok")

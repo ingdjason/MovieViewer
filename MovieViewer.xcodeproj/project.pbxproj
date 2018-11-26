@@ -11,6 +11,8 @@
 		5849FB128879F9A3BCDFA78B /* Pods_MovieViewerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81F79B702490D3DC9B3EFB1B /* Pods_MovieViewerUITests.framework */; };
 		59349504215B31480081404B /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59349503215B31480081404B /* WebViewController.swift */; };
 		59349506215B3DCB0081404B /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59349505215B3DCB0081404B /* WebKit.framework */; };
+		5947432D21A857CB00989873 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5947432C21A857CB00989873 /* Movie.swift */; };
+		5947433021A8643D00989873 /* MovieApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5947432F21A8643D00989873 /* MovieApiManager.swift */; };
 		59BE183A214EF59400E9ADA7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59BE1839214EF59400E9ADA7 /* AppDelegate.swift */; };
 		59BE183F214EF59500E9ADA7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 59BE183D214EF59500E9ADA7 /* Main.storyboard */; };
 		59BE1841214EF59C00E9ADA7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 59BE1840214EF59C00E9ADA7 /* Assets.xcassets */; };
@@ -45,6 +47,8 @@
 		57ADBD8E2AAC9E5798C14AFB /* Pods-MovieViewerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieViewerUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MovieViewerUITests/Pods-MovieViewerUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		59349503215B31480081404B /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		59349505215B3DCB0081404B /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		5947432C21A857CB00989873 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
+		5947432F21A8643D00989873 /* MovieApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieApiManager.swift; sourceTree = "<group>"; };
 		59BE1836214EF59400E9ADA7 /* MovieViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		59BE1839214EF59400E9ADA7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		59BE183E214EF59500E9ADA7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -98,6 +102,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5947432B21A8578D00989873 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5947432C21A857CB00989873 /* Movie.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		5947432E21A863F900989873 /* Api */ = {
+			isa = PBXGroup;
+			children = (
+				5947432F21A8643D00989873 /* MovieApiManager.swift */,
+			);
+			path = Api;
+			sourceTree = "<group>";
+		};
 		59BE182D214EF59400E9ADA7 = {
 			isa = PBXGroup;
 			children = (
@@ -123,6 +143,8 @@
 		59BE1838214EF59400E9ADA7 /* MovieViewer */ = {
 			isa = PBXGroup;
 			children = (
+				5947432E21A863F900989873 /* Api */,
+				5947432B21A8578D00989873 /* Model */,
 				59BE186C214F0B6200E9ADA7 /* View controller */,
 				59BE1869214F0B1400E9ADA7 /* Views */,
 				59BE1839214EF59400E9ADA7 /* AppDelegate.swift */,
@@ -369,10 +391,16 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-MovieViewer/Pods-MovieViewer-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
+				"${BUILT_PRODUCTS_DIR}/Nuke/Nuke.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Nuke.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -406,9 +434,11 @@
 			files = (
 				59BE183A214EF59400E9ADA7 /* AppDelegate.swift in Sources */,
 				59BE1868214EF7D500E9ADA7 /* MovieViewController.swift in Sources */,
+				5947432D21A857CB00989873 /* Movie.swift in Sources */,
 				59BE186B214F0B4C00E9ADA7 /* MovieCell.swift in Sources */,
 				59349504215B31480081404B /* WebViewController.swift in Sources */,
 				59D8F2B02159CDD100EBF527 /* DetailsViewController.swift in Sources */,
+				5947433021A8643D00989873 /* MovieApiManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
