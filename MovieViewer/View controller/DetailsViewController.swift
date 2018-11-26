@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AlamofireImage
 
 class DetailsViewController: UIViewController {
     
@@ -47,14 +48,17 @@ class DetailsViewController: UIViewController {
         let baseUrl = "https://image.tmdb.org/t/p/w500"
         if let poster_path = movie["poster_path"] as? String {
             let imageUrl = NSURL(string: baseUrl+poster_path )
-            backdropImageView.setImageFor(UIControlState.normal, with: imageUrl! as URL)
+            let placeholderImage = UIImage(named: "placeholder")!
+            backdropImageView.af_setBackgroundImage(for: ControlState.normal, url: imageUrl as! URL)
+            //backdropImageView.af_setImage(withURL: imageUrl!, placeholderImage: placeholderImage)
             
             //(imageUrl! as URL)
         }
         
         if let backdrop_path = movie["backdrop_path"] as? String {
             let imageUrlBack = NSURL(string: baseUrl+backdrop_path )
-            posterImageView.setImageWith(imageUrlBack! as URL)
+            let placeholderImage = UIImage(named: "placeholder")!
+            posterImageView.af_setImage(withURL: imageUrlBack! as URL, placeholderImage: placeholderImage)
         }
         
         

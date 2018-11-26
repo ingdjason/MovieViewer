@@ -23,7 +23,7 @@ class MovieCell: UITableViewCell {
             let baseUrl = "https://image.tmdb.org/t/p/w500"
             let placeholderImage = UIImage(named: "placeholder")!
             let poster_path = URL(string: baseUrl + movies.posterUrl!)
-            imageView.af_setImage(withURL: poster_path!, placeholderImage: placeholderImage)
+            posterView.af_setImage(withURL: poster_path!, placeholderImage: placeholderImage)
         }
     }
      
